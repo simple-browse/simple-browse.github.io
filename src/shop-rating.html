@@ -1,6 +1,4 @@
-<html>
-
-<head>
+<html><head>
     <link rel="import" href="../bower_components/polymer/polymer.html">
     <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
@@ -42,59 +40,10 @@
 
         </template>
 
-        <script>
-            "use strict";
-            Polymer({
-                is: "shop-rating",
-                properties: {
-                    rating: {
-                        type: Number,
-                        value: 0
-                    },
-                    totalRatings: Number,
-                    integerRatings: {
-                        type: Array,
-                        computed: "_computeIntegerRatings(rating)"
-                    },
-                    hasHalfRating: {
-                        type: Boolean,
-                        computed: "_computeHasHalfRating(rating)"
-                    },
-                    borderRatings: {
-                        type: Array,
-                        computed: "_computeBorderRatings(totalStars, rating, hasHalfRating)"
-                    },
-                    totalStars: {
-                        type: Number,
-                        value: 5
-                    }
-                },
-                _computeIntegerRatings: function(t) {
-                    var r = [],
-                        a = 0,
-                        e = parseInt(t);
-                    for (a = 0; a < e; a++) r.push({
-                        ratingNumber: a
-                    });
-                    return r
-                },
-                _computeHasHalfRating: function(t) {
-                    return t % 1 > .5
-                },
-                _computeBorderRatings: function(t, r, a) {
-                    a && (r = ++r);
-                    var e = [],
-                        n = 0,
-                        i = this.totalStars - parseInt(r);
-                    for (n = 0; n < i; n++) e.push({
-                        ratingNumber: n
-                    });
-                    return e
-                }
-            });
-        </script>
+        <script>"use strict";Polymer({is:"shop-rating",properties:{rating:{type:Number,value:0},totalRatings:Number,integerRatings:{type:Array,computed:"_computeIntegerRatings(rating)"},hasHalfRating:{type:Boolean,computed:"_computeHasHalfRating(rating)"},borderRatings:{type:Array,computed:"_computeBorderRatings(totalStars, rating, hasHalfRating)"},totalStars:{type:Number,value:5}},_computeIntegerRatings:function(t){var r=[],a=0,e=parseInt(t);for(a=0;a<e;a++)r.push({ratingNumber:a});return r},_computeHasHalfRating:function(t){return t%1>.5},_computeBorderRatings:function(t,r,a){a&&(r=++r);var e=[],n=0,i=this.totalStars-parseInt(r);for(n=0;n<i;n++)e.push({ratingNumber:n});return e}});</script>
 
     </dom-module>
-</body>
 
-</html>
+
+
+</body></html>
