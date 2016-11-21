@@ -1,8 +1,18 @@
-<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shop-button.html">
 <link rel="import" href="shop-image.html">
 
-</head><body><dom-module id="shop-home">
+<dom-module id="shop-home">
 
   <template>
 
@@ -132,24 +142,93 @@
 
     </style>
 
-    
-      
-      
-    
+    <!--<div class="item">-->
+      <!--<shop-image  data-type="search" src="/images/promos/save-on-tvs2.jpg" placeholderImg="/images/promos/save-on-tvs2-small.jpeg" on-tap="tappedItem" alt="tv"></shop-image>-->
+      <!--<shop-image  data-type="web" src="/images/promos/bf-flyer-en_mobile.jpg" placeholderImg="/images/promos/bf-flyer-en_mobile-placeholder.jpeg" on-tap="tappedItem" alt="flyer"></shop-image>-->
+    <!--</div>-->
 
-    <template is="dom-repeat" items="[[categories]]" strip-whitespace="">
+    <template is="dom-repeat" items="[[categories]]" strip-whitespace>
       <div class="item">
-          <shop-image data-type="search" data-action="[[item.title]]" on-tap="tappedItem" src="[[item.image]]" alt="[[item.title]]" placeholder-img="[[item.placeholder]]"></shop-image>
-        
-          
-        
+          <shop-image data-type="search" data-action="[[item.title]]" on-tap="tappedItem"
+                      src="[[item.image]]" alt="[[item.title]]" placeholder-img="[[item.placeholder]]"></shop-image>
+        <!--<shop-button>-->
+          <!--<h2 alt="[[item.title]]" data-type="search" on-tap="tappedItem">Shop [[item.title]]</h2>-->
+        <!--</shop-button>-->
       </div>
     </template>
-    
+    <!--</iron-swipeable-pages>-->
 
   </template>
 
-  <script>Polymer({is:"shop-home",properties:{appActionType:{type:String,value:"pdp"},appActionData:{type:String,value:"tvs"},categories:{type:Array},visible:{type:Boolean,observer:"_visibleChanged"}},behaviors:[Polymer.AppLocalizeBehavior],observers:["onQueryChange(query)"],tappedItem:function(e){var t=Polymer.dom(e).localTarget.alt,a=Polymer.dom(e).localTarget.getAttribute("data-type");try{webkit.messageHandlers.messageReciever.postMessage({actionType:a,actionData:t})}catch(e){console.log('The native context does not exist yet:\nType: "'+a+'", Data: "'+t+'"')}},onQueryChange:function(e,t){var a=e.split("lang=")[1]?e.split("lang=")[1].split("&")[0]:this.language;"en"!==a&&"fr"!==a||(this.language=a)},_visibleChanged:function(e){e&&this.fire("change-section",{title:"Home"})}});</script>
+  <script>
+
+    Polymer({
+
+      is: 'shop-home',
+
+      properties: {
+
+        appActionType: {
+          type: String,
+          value: 'pdp'
+        },
+
+        appActionData: {
+          type: String,
+          value: 'tvs'
+        },
+
+        categories: {
+          type: Array
+        },
+
+        visible: {
+          type: Boolean,
+          observer: '_visibleChanged'
+        }
+
+      },
+
+      behaviors: [
+        Polymer.AppLocalizeBehavior
+      ],
+
+      observers: [
+        'onQueryChange(query)'
+      ],
+
+      tappedItem: function(e) {
+        var appActionData = Polymer.dom(e).localTarget.alt;
+        var appActionType = Polymer.dom(e).localTarget.getAttribute('data-type');
+
+        try {
+          webkit.messageHandlers.messageReciever.postMessage({
+            actionType: appActionType,
+            actionData: appActionData
+          });
+        }
+        catch(err) {
+          console.log('The native context does not exist yet:\nType: "'+ appActionType + '", Data: "' + appActionData + '"');
+        }
+      },
+
+      onQueryChange: function(newValue, oldValue) {
+        var langQueryString = newValue.split("lang=")[1] ? newValue.split("lang=")[1].split("&")[0] : this.language;
+
+        // Get lang query string of url
+        if(langQueryString === 'en' || langQueryString === 'fr') {
+          this.language = langQueryString;
+        }
+      },
+
+      _visibleChanged: function(visible) {
+        if (visible) {
+          this.fire('change-section', { title: 'Home' });
+        }
+      }
+
+    });
+
+  </script>
 
 </dom-module>
-</body></html>
