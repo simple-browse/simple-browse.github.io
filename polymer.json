@@ -1,16 +1,18 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "src/shop-app.html",
   "fragments": [
-    "src/my-view1.html",
-    "src/my-view2.html",
-    "src/my-view3.html",
-    "src/my-view404.html"
+    "src/shop-list.html",
+    "src/shop-detail.html",
+    "src/shop-cart.html",
+    "src/shop-checkout.html",
+    "src/lazy-resources.html"
   ],
   "sourceGlobs": [
-    "src/**/*",
-    "images/**/*",
-    "bower.json"
+   "src/**/*",
+   "data/**/*",
+   "images/**/*",
+   "bower.json"
   ],
   "includeDependencies": [
     "manifest.json",
